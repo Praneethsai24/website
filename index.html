@@ -327,43 +327,91 @@ html[lang="te"] body, html[lang="te"] button, html[lang="te"] a {
     "Is after-sales support available?":"సోలార్ పెట్టించాక కూడా సపోర్ట్ ఉంటుందా?",
     "Yes, dedicated after-sales support is available for all installations.":"ఖచ్చితంగా. సోలార్ పెట్టించాక కూడా మీకు సపోర్ట్ అందిస్తాం.",
     "Please enter a valid monthly bill amount.":"మీ నెలవారీ కరెంట్ బిల్లు మొత్తాన్ని సరిగ్గా నమోదు చేయండి.",
-    "Recommended: ":"సిఫార్సు: ","System Cost":"సిస్టమ్ ఖర్చు","Subsidy":"సబ్సిడీ","Net Investment":"మీరు పెట్టాల్సిన మొత్తం",
-    "Annual Savings":"ఏడాదికి ఆదా","Payback Period:":"పెట్టుబడి తిరిగి వచ్చే సమయం:","25-Year Net Savings:":"25 ఏళ్లలో మొత్తం ఆదా:",
-    "Get Free Consultation on WhatsApp":"వాట్సాప్‌లో ఫ్రీగా మాట్లాడండి","Ready to Go Solar?":"సోలార్ పెట్టించుకోవాలనుకుంటున్నారా?",
+    "Recommended:":"సిఫార్సు:","Units/Year":"యూనిట్లు/సంవత్సరం","System Cost":"సిస్టమ్ ఖర్చు","Subsidy":"సబ్సిడీ",
+    "Net Investment":"మీరు పెట్టాల్సిన మొత్తం","Annual Savings":"ఏడాదికి ఆదా","Payback Period:":"పెట్టుబడి తిరిగి వచ్చే సమయం:",
+    "25-Year Net Savings:":"25 ఏళ్లలో మొత్తం ఆదా:","Get Free Consultation on WhatsApp":"వాట్సాప్‌లో ఫ్రీగా మాట్లాడండి",
+    "Ready to Go Solar?":"సోలార్ పెట్టించుకోవాలనుకుంటున్నారా?",
     "Contact us today for a free consultation.":"ఏమైనా సందేహాలున్నాయా? మాకు కాల్ చేయండి. మాట్లాడుకుందాం!",
-    "© 2026 SJ Solars. All Rights Reserved.":"© 2026 SJ Solars. అన్ని హక్కులు ప్రత్యేకం."
+    "© 2026 SJ Solars. All Rights Reserved.":"© 2026 SJ Solars. అన్ని హక్కులు ప్రత్యేకం.",
+    "240 Units":"240 యూనిట్లు","360 Units":"360 యూనిట్లు","600 Units":"600 యూనిట్లు","840 Units":"840 యూనిట్లు","1200 Units":"1200 యూనిట్లు",
+    "₹60,000 Subsidy":"₹60,000 సబ్సిడీ","₹78,000 Subsidy":"₹78,000 సబ్సిడీ"
+  };
+
+  const attributeTranslations = {
+    "placeholder": {
+      "Enter monthly electricity bill":"నెలవారీ కరెంట్ బిల్లు నమోదు చేయండి"
+    },
+    "aria-label": {}
   };
   let language = "en";
-  let originals = new WeakMap();
+  const originalText = new WeakMap();
+  const originalAttrs = new WeakMap();
 
-  function textNodes() {
-    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-    const list = [];
+  function walkTextNodes(root) {
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    const nodes = [];
     let node;
     while ((node = walker.nextNode())) {
-      if (node.parentElement && !node.parentElement.closest("script,style,noscript")) list.push(node);
+      if (!node.parentElement || node.parentElement.closest("script,style,noscript")) continue;
+      nodes.push(node);
     }
-    return list;
+    return nodes;
+  }
+
+  function translateNode(node) {
+    if (!originalText.has(node)) originalText.set(node, node.nodeValue);
+    const original = originalText.get(node);
+    const trimmed = original.trim();
+    if (!trimmed) return;
+    let translated = original;
+    if (language === "te") {
+      if (translations[trimmed]) {
+        translated = original.replace(trimmed, translations[trimmed]);
+      } else {
+        // Translate labels when the original text is split around inline elements, e.g. "25" + " Years Warranty".
+        for (const [en, te] of Object.entries(translations)) {
+          if (trimmed === en) { translated = original.replace(trimmed, te); break; }
+        }
+      }
+    }
+    if (node.nodeValue !== translated) node.nodeValue = translated;
+  }
+
+  function translateAttributes() {
+    document.querySelectorAll("input,textarea,button,a").forEach(el => {
+      ["placeholder","title","aria-label"].forEach(attr => {
+        if (!el.hasAttribute(attr)) return;
+        if (!originalAttrs.has(el)) originalAttrs.set(el, {});
+        const attrs = originalAttrs.get(el);
+        if (!(attr in attrs)) attrs[attr] = el.getAttribute(attr);
+        const original = attrs[attr];
+        const replacement = language === "te" ? ((attributeTranslations[attr] || {})[original] || original) : original;
+        if (el.getAttribute(attr) !== replacement) el.setAttribute(attr, replacement);
+      });
+    });
+  }
+
+  function translatePage() {
+    walkTextNodes(document.body).forEach(translateNode);
+    translateAttributes();
+    document.documentElement.lang = language === "te" ? "te" : "en";
+    document.title = language === "te" ? "SJ సోలార్స్ | సోలార్ ప్యాకేజీలు" : "SJ Solars | Premium Solar Solutions";
+    const button = document.getElementById("languageToggle");
+    if (button) button.textContent = language === "en" ? "EN | TE" : "TE | EN";
   }
 
   window.toggleLanguage = function () {
     language = language === "en" ? "te" : "en";
-    textNodes().forEach(node => {
-      if (!originals.has(node)) originals.set(node, node.nodeValue);
-      const original = originals.get(node);
-      const key = original.trim();
-      if (!key) return;
-      let value = original;
-      if (language === "te" && translations[key]) {
-        value = original.replace(key, translations[key]);
-      }
-      if (node.nodeValue !== value) node.nodeValue = value;
-    });
-    document.documentElement.lang = language;
-    document.title = language === "te" ? "SJ సోలార్స్ | సోలార్ ప్యాకేజీలు" : "SJ Solars | Premium Solar Solutions";
-    const button = document.getElementById("languageToggle");
-    if (button) button.textContent = language === "en" ? "EN | TE" : "TE | EN";
+    translatePage();
   };
+
+  // Calculator results are inserted after a button click, so translate them when generated.
+  const resultBox = document.getElementById("roiResult");
+  if (resultBox) {
+    new MutationObserver(() => {
+      if (language === "te") translatePage();
+    }).observe(resultBox, { childList: true, subtree: true });
+  }
 })();
 </script>
 
