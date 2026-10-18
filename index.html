@@ -30,43 +30,188 @@ body{
 }
 </style>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;500;600;700;800;900&display=swap');
-html[lang="te"] body, html[lang="te"] button, html[lang="te"] a {
-  font-family: 'Noto Sans Telugu', Inter, sans-serif;
+
+
+
+<style id="sj-mobile-first-redesign">
+/* Mobile-first polish: keep the existing content and brand, improve hierarchy and touch targets. */
+:root { scroll-padding-top: 96px; }
+body { overflow-x: hidden; }
+img { max-width: 100%; }
+a, button { -webkit-tap-highlight-color: transparent; }
+a:focus-visible, button:focus-visible { outline: 3px solid #facc15; outline-offset: 3px; }
+
+@media (max-width: 767px) {
+  :root { scroll-padding-top: 120px; }
+  body {
+    background-attachment: scroll;
+    background-position: center top;
+    background-size: auto 100vh;
+  }
+
+  /* A deliberate two-row mobile header: branding first, easy-to-tap actions below. */
+  .site-nav { background: rgba(255,255,255,.97); box-shadow: 0 4px 18px rgba(15,23,42,.08); }
+  .site-nav .nav-inner {
+    min-height: 0;
+    padding: 10px 14px 12px;
+    display: grid;
+    grid-template-columns: minmax(0,1fr) auto;
+    grid-template-areas: "brand language" "actions actions";
+    gap: 10px;
+  }
+  .site-nav .brand { grid-area: brand; font-size: 21px; line-height: 1.2; }
+  .site-nav .nav-actions {
+    grid-area: actions;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .site-nav #languageToggle {
+    grid-area: language;
+    padding: 8px 13px;
+    min-height: 38px;
+    font-size: 13px;
+    border-radius: 999px;
+    color: #172033;
+  }
+  .site-nav .call-link, .site-nav .whatsapp-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 10px 12px;
+    font-size: 14px;
+    border-radius: 13px;
+    text-align: center;
+  }
+  .site-nav .call-link { background: #111827; }
+  .site-nav .whatsapp-link { background: #facc15; color: #111827; }
+
+  /* Give the hero enough clearance for the taller header and a more balanced first screen. */
+  .hero {
+    min-height: auto;
+    padding-top: 126px;
+    padding-bottom: 34px;
+    align-items: center;
+    background-position: center center;
+  }
+  .hero > div.relative {
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    grid-template-columns: minmax(0,1fr);
+    gap: 28px;
+  }
+  .hero h2 {
+    max-width: 12ch;
+    font-size: clamp(2.65rem, 10.4vw, 3.65rem);
+    line-height: 1.13;
+    letter-spacing: -.035em;
+    text-wrap: balance;
+    margin: 0;
+  }
+  .hero p {
+    max-width: 34ch;
+    margin-top: 18px;
+    font-size: 16px;
+    line-height: 1.55;
+    text-wrap: pretty;
+  }
+  .hero .mt-8.flex {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 24px;
+  }
+  .hero .mt-8.flex a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50px;
+    padding: 12px 10px;
+    font-size: 14px;
+    line-height: 1.35;
+    text-align: center;
+    border-radius: 14px;
+  }
+
+  /* Stats card: clearer spacing and a glass effect that remains readable over the image. */
+  .hero .glass {
+    width: 100%;
+    padding: 22px 16px !important;
+    border-radius: 24px;
+    background: rgba(248,250,252,.82);
+    border: 1px solid rgba(255,255,255,.78);
+    box-shadow: 0 14px 36px rgba(2,6,23,.18);
+    backdrop-filter: blur(14px);
+  }
+  .hero .glass .grid { gap: 22px 12px; }
+  .hero .glass h3 { font-size: clamp(2.2rem, 9vw, 2.8rem); line-height: 1.05; }
+  .hero .glass p { margin: 5px 0 0; font-size: 13px; line-height: 1.45; overflow-wrap: anywhere; }
+
+  /* Consistent section rhythm and comfortable text widths. */
+  #why-choose-us {
+    margin: 24px 12px !important;
+    padding: 34px 16px !important;
+    border-radius: 22px !important;
+  }
+  #why-choose-us h2 { font-size: 25px !important; line-height: 1.35; }
+  #why-choose-us > p { line-height: 1.6; }
+  #why-choose-us > div { grid-template-columns: minmax(0,1fr) !important; gap: 12px !important; }
+  .why-card { padding: 20px !important; }
+  #projects { padding-top: 54px; padding-bottom: 54px; }
+  #projects > div, #packages > div { padding-left: 18px; padding-right: 18px; }
+  #projects h2, #packages h2, #contact h2 {
+    font-size: clamp(2rem, 8vw, 2.6rem);
+    line-height: 1.2;
+    letter-spacing: -.025em;
+    margin-bottom: 24px;
+  }
+  #projects .grid { grid-template-columns: minmax(0,1fr); gap: 14px; }
+  #projects img { height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 20px; }
+  #packages { padding-top: 54px; padding-bottom: 54px; }
+  #packages .grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+  #packages .grid > div {
+    min-width: 0;
+    padding: 16px 13px;
+    border-radius: 20px;
+    transform: none !important;
+    overflow-wrap: anywhere;
+  }
+  #packages .grid h3 { font-size: 1.65rem; line-height: 1.15; }
+  #packages .grid p { font-size: 14px; line-height: 1.5; }
+  #packages .grid > div:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  #faq {
+    margin: 24px 12px !important;
+    padding: 34px 14px !important;
+    border-radius: 22px !important;
+  }
+  #faq h2 { font-size: 25px !important; line-height: 1.35; }
+  #faq .faq-question { gap: 12px; line-height: 1.5; padding: 16px !important; }
+  #faq .faq-answer { padding-left: 16px !important; padding-right: 16px !important; }
+  #contact { padding-top: 58px; padding-bottom: 64px; }
+  #contact > div { padding-left: 18px; padding-right: 18px; }
+  #contact .mt-8 { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  #contact .mt-8 a { display: flex; justify-content: center; align-items: center; min-height: 50px; border-radius: 14px; }
+  #contact iframe { height: 270px; border-radius: 20px; }
+  body > a.fixed.bottom-6.right-6 {
+    right: 14px;
+    bottom: 18px;
+    padding: 13px 17px;
+    border-radius: 999px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.22);
+    z-index: 60;
+  }
+  footer { padding: 24px 16px !important; font-size: 13px; }
 }
-.site-nav { min-height: 76px; }
-.nav-inner { flex-wrap: nowrap; }
-.nav-actions { flex-shrink: 0; }
-.hero h2 { overflow-wrap: anywhere; }
-@media (max-width: 640px) {
-  .site-nav .nav-inner { min-height: 76px; padding-left: 12px; padding-right: 12px; gap: 8px; }
-  .site-nav .brand { font-size: 18px; line-height: 1.1; flex: 0 0 auto; }
-  .site-nav .nav-actions { gap: 6px; }
-  .site-nav #languageToggle { padding: 8px 9px; font-size: 12px; }
-  .site-nav .call-link, .site-nav .whatsapp-link { padding: 9px 10px; font-size: 12px; }
-  .hero { padding-top: 76px; min-height: 100svh; }
-  .hero > div.relative { padding-left: 18px; padding-right: 18px; }
-  .hero h2 { font-size: clamp(2.55rem, 10vw, 3.7rem); line-height: 1.18; letter-spacing: -0.03em; }
-  .hero p { font-size: 1rem; line-height: 1.55; }
-  .hero .mt-8.flex { flex-wrap: wrap; gap: 10px; }
-  .hero .mt-8.flex a { padding: 12px 14px; font-size: 14px; }
-  .glass { padding: 20px !important; }
-  .glass .grid { gap: 18px; }
-  .glass h3 { font-size: 2.5rem; line-height: 1.1; }
-  .glass p { font-size: 13px; line-height: 1.45; }
-  #why-choose-us { margin: 24px 12px !important; padding: 38px 14px !important; }
-  #why-choose-us h2 { font-size: 24px !important; line-height: 1.35; }
-  #projects h2, #packages h2, #contact h2 { font-size: 2.2rem; line-height: 1.25; }
-  #packages .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-  #packages .grid > div { padding: 16px; min-width: 0; }
-  #packages .grid h3 { font-size: 1.6rem; }
-  #faq { margin: 24px 12px !important; padding: 38px 14px !important; }
-}
+
 @media (max-width: 380px) {
-  .site-nav .brand { font-size: 16px; }
-  .site-nav .call-link, .site-nav .whatsapp-link { padding: 8px; font-size: 11px; }
-  .site-nav #languageToggle { padding: 8px; font-size: 11px; }
+  .site-nav .brand { font-size: 19px; }
+  .hero h2 { font-size: 2.55rem; }
+  .hero .mt-8.flex { grid-template-columns: 1fr; }
+  #packages .grid { grid-template-columns: minmax(0,1fr); }
+  #packages .grid > div:last-child:nth-child(odd) { grid-column: auto; }
 }
 </style>
 
