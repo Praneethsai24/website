@@ -215,6 +215,65 @@ a:focus-visible, button:focus-visible { outline: 3px solid #facc15; outline-offs
 }
 </style>
 
+
+<style id="sj-mobile-followup-fixes">
+/* Fix contrast and mobile header alignment seen in the phone screenshots. */
+@media (max-width: 767px) {
+  /* The language button is nested inside .nav-actions, so place the actions as a real 3-column row. */
+  .site-nav .nav-inner {
+    display: grid !important;
+    grid-template-columns: minmax(0,1fr) auto !important;
+    grid-template-areas: "brand language" "actions actions" !important;
+    align-items: center;
+    gap: 10px !important;
+    padding: 10px 14px !important;
+  }
+  .site-nav .brand { grid-area: brand !important; }
+  .site-nav .nav-actions {
+    grid-area: actions !important;
+    display: flex !important;
+    width: 100%;
+    align-items: center;
+    gap: 10px !important;
+  }
+  .site-nav #languageToggle {
+    grid-area: language !important;
+    justify-self: end;
+    align-self: center;
+    margin: 0 !important;
+    min-height: 40px;
+  }
+  .site-nav .call-link, .site-nav .whatsapp-link {
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 44px;
+  }
+
+  /* Headings on pale sections must be dark enough to read. */
+  #packages h2,
+  #contact h2 {
+    color: #172033 !important;
+    text-shadow: none !important;
+  }
+  #contact > div > p {
+    color: #334155 !important;
+  }
+  #packages {
+    background: #f8fafc !important;
+  }
+  #projects h2 { color: #172033 !important; }
+
+  /* Prevent the fixed header from hiding the beginning of each section. */
+  #projects, #packages, #faq, #contact, #why-choose-us {
+    scroll-margin-top: 120px;
+  }
+
+  /* Give the project gallery and the final contact section cleaner edges. */
+  #projects img { display: block; }
+  #contact iframe { max-width: 100%; }
+}
+</style>
+
 </head>
 <body class="bg-slate-50 text-slate-800">
 
