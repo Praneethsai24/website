@@ -29,25 +29,62 @@ body{
     color:#000 !important;
 }
 </style>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;500;600;700;800;900&display=swap');
+html[lang="te"] body, html[lang="te"] button, html[lang="te"] a {
+  font-family: 'Noto Sans Telugu', Inter, sans-serif;
+}
+.site-nav { min-height: 76px; }
+.nav-inner { flex-wrap: nowrap; }
+.nav-actions { flex-shrink: 0; }
+.hero h2 { overflow-wrap: anywhere; }
+@media (max-width: 640px) {
+  .site-nav .nav-inner { min-height: 76px; padding-left: 12px; padding-right: 12px; gap: 8px; }
+  .site-nav .brand { font-size: 18px; line-height: 1.1; flex: 0 0 auto; }
+  .site-nav .nav-actions { gap: 6px; }
+  .site-nav #languageToggle { padding: 8px 9px; font-size: 12px; }
+  .site-nav .call-link, .site-nav .whatsapp-link { padding: 9px 10px; font-size: 12px; }
+  .hero { padding-top: 76px; min-height: 100svh; }
+  .hero > div.relative { padding-left: 18px; padding-right: 18px; }
+  .hero h2 { font-size: clamp(2.55rem, 10vw, 3.7rem); line-height: 1.18; letter-spacing: -0.03em; }
+  .hero p { font-size: 1rem; line-height: 1.55; }
+  .hero .mt-8.flex { flex-wrap: wrap; gap: 10px; }
+  .hero .mt-8.flex a { padding: 12px 14px; font-size: 14px; }
+  .glass { padding: 20px !important; }
+  .glass .grid { gap: 18px; }
+  .glass h3 { font-size: 2.5rem; line-height: 1.1; }
+  .glass p { font-size: 13px; line-height: 1.45; }
+  #why-choose-us { margin: 24px 12px !important; padding: 38px 14px !important; }
+  #why-choose-us h2 { font-size: 24px !important; line-height: 1.35; }
+  #projects h2, #packages h2, #contact h2 { font-size: 2.2rem; line-height: 1.25; }
+  #packages .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  #packages .grid > div { padding: 16px; min-width: 0; }
+  #packages .grid h3 { font-size: 1.6rem; }
+  #faq { margin: 24px 12px !important; padding: 38px 14px !important; }
+}
+@media (max-width: 380px) {
+  .site-nav .brand { font-size: 16px; }
+  .site-nav .call-link, .site-nav .whatsapp-link { padding: 8px; font-size: 11px; }
+  .site-nav #languageToggle { padding: 8px; font-size: 11px; }
+}
+</style>
+
 </head>
 <body class="bg-slate-50 text-slate-800">
 
-<nav class="fixed top-0 w-full bg-white/90 backdrop-blur border-b z-50">
-<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-<h1 class="font-black text-2xl">SJ Solars</h1>
-<div class="hidden md:flex gap-8 font-semibold">
-<a href="#about">About</a>
-<a href="#projects">Projects</a>
-<a href="#packages">Packages</a>
-<a href="#faq">FAQ</a>
-<a href="#contact">Contact</a>
-</div>
-<div class="flex items-center gap-2"><button id="languageToggle" type="button" onclick="toggleLanguage()" class="border border-slate-300 bg-white px-3 py-2 rounded-full font-bold text-sm" aria-label="Switch website language">EN | TE</button></div>
- <div class="flex gap-3">
-<a href="tel:+916303868049" class="bg-slate-900 text-white px-4 py-2 rounded-full">Call</a>
-<a href="https://wa.me/916303868049" target="_blank" class="bg-yellow-400 px-4 py-2 rounded-full font-bold">WhatsApp</a>
-</div>
-</div>
+<nav class="site-nav fixed top-0 w-full bg-white/90 backdrop-blur border-b z-50">
+  <div class="nav-inner max-w-7xl mx-auto px-4 sm:px-6 min-h-20 flex items-center justify-between gap-3">
+    <h1 class="font-black text-2xl brand">SJ Solars</h1>
+    <div class="hidden md:flex gap-8 font-semibold nav-links">
+      <a href="#about">About</a><a href="#projects">Projects</a><a href="#packages">Packages</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+    </div>
+    <div class="nav-actions flex items-center gap-2">
+      <button id="languageToggle" type="button" onclick="toggleLanguage()" class="border border-slate-300 bg-white px-3 py-2 rounded-full font-bold text-sm whitespace-nowrap" aria-label="Switch website language">EN | TE</button>
+      <a href="tel:+916303868049" class="call-link bg-slate-900 text-white px-4 py-2 rounded-full whitespace-nowrap">Call</a>
+      <a href="https://wa.me/916303868049" target="_blank" rel="noopener" class="whatsapp-link bg-yellow-400 px-4 py-2 rounded-full font-bold whitespace-nowrap">WhatsApp</a>
+    </div>
+  </div>
 </nav>
 
 <section class="hero relative min-h-screen flex items-center">
@@ -271,98 +308,62 @@ body{
 <script>
 (function () {
   const translations = {
-    "About": "మన గురించి",
-    "Projects": "మా పనులు",
-    "Packages": "సోలార్ ప్యాకేజీలు",
-    "FAQ": "మీ సందేహాలు",
-    "Contact": "మమ్మల్ని సంప్రదించండి",
-    "Call": "కాల్ చేయండి",
-    "WhatsApp": "వాట్సాప్",
-    "Power Your Home With Solar": "మీ ఇంటికి సోలార్ పెట్టించుకోండి!",
-    "Professional Installation • Government Subsidy • Net Metering Assistance": "ఇన్‌స్టాలేషన్ నుంచి సబ్సిడీ వరకు — అన్నింట్లోనూ మీకు సహాయం చేస్తాం",
-    "Get Free Quote": "ఫ్రీ కోట్ పొందండి",
-    "Call Now": "ఇప్పుడే కాల్ చేయండి",
-    "Installations": "ఇన్‌స్టాలేషన్లు",
-    "Years Warranty": "ఏళ్ల వారంటీ",
-    "Support": "సపోర్ట్",
-    "Customer Focus": "మీ సంతృప్తే మా ప్రాధాన్యం",
-    "Why Choose SJ Solars?": "SJ Solars నే ఎందుకు ఎంచుకోవాలి?",
-    "Trusted local expertise backed by real results.": "మంచి పని, నమ్మకమైన సేవ — ఇదే మా మాట.",
-    "70+ Installations": "70+ ఇన్‌స్టాలేషన్లు",
-    "High-efficiency panels built for long-term performance.": "ఎక్కువ కాలం బాగా పనిచేసే సోలార్ ప్యానెల్స్.",
-    "25 Years Warranty": "25 ఏళ్ల వారంటీ",
-    "Confidence backed by long-term product assurance.": "దీర్ఘకాలిక వారంటీతో మరింత నమ్మకం.",
-    "24/7 Support": "24/7 సపోర్ట్",
-    "Professional local team, always ready to help.": "మీకు సహాయం చేయడానికి మా టీమ్ ఎప్పుడూ సిద్ధంగా ఉంటుంది.",
-    "Complete help with subsidy and net-metering paperwork.": "సబ్సిడీ, నెట్ మీటరింగ్ పనుల్లో కూడా మేమే హెల్ప్ చేస్తాం.",
-    "Recent Installations": "మేము ఇటీవల చేసిన పనులు",
-    "Solar Packages": "సోలార్ ప్యాకేజీలు",
-    "Most Popular": "చాలామంది ఎంచుకునేది",
-    "Frequently Asked Questions": "మీకు వచ్చే సందేహాలు",
-    "Everything you need to know before going solar.": "సోలార్ పెట్టించుకునే ముందు మీకు తెలియాల్సిన విషయాలు ఇక్కడ ఉన్నాయి.",
-    "How long does installation take?": "సోలార్ పెట్టించడానికి ఎన్ని రోజులు పడుతుంది?",
-    "Usually 2–5 days depending on system size.": "సిస్టమ్ సైజును బట్టి సాధారణంగా 2–5 రోజులు పడుతుంది.",
-    "Do you help with government subsidy paperwork?": "ప్రభుత్వ సబ్సిడీ కోసం కూడా మీరు హెల్ప్ చేస్తారా?",
-    "Yes, we assist throughout the entire subsidy and net-metering process.": "అవును! సబ్సిడీ నుంచి నెట్ మీటరింగ్ వరకు మేము మీకు హెల్ప్ చేస్తాం.",
-    "Is after-sales support available?": "సోలార్ పెట్టించాక ఏదైనా సమస్య వస్తే సపోర్ట్ ఉంటుందా?",
-    "Yes, dedicated after-sales support is available for all installations.": "ఖచ్చితంగా. సోలార్ పెట్టించాక కూడా మీకు సపోర్ట్ అందిస్తాం.",
-    "Please enter a valid monthly bill amount.": "మీ నెలవారీ కరెంట్ బిల్లు మొత్తాన్ని సరిగ్గా నమోదు చేయండి.",
-    "System Cost": "సిస్టమ్ ఖర్చు",
-    "Subsidy": "సబ్సిడీ",
-    "Net Investment": "మీరు పెట్టాల్సిన మొత్తం",
-    "Annual Savings": "ఏడాదికి ఆదా",
-    "Payback Period:": "పెట్టుబడి తిరిగి వచ్చే సమయం:",
-    "25-Year Net Savings:": "25 ఏళ్లలో మొత్తం ఆదా:",
-    "Get Free Consultation on WhatsApp": "వాట్సాప్‌లో ఫ్రీగా మాట్లాడండి",
-    "Ready to Go Solar?": "సోలార్ పెట్టించుకోవాలనుకుంటున్నారా?",
-    "Contact us today for a free consultation.": "ఏమైనా సందేహాలున్నాయా? మాకు కాల్ చేయండి. మాట్లాడుకుందాం!",
-    "© 2026 SJ Solars. All Rights Reserved.": "© 2026 SJ Solars. అన్ని హక్కులు ప్రత్యేకం."
+    "About":"మన గురించి","Projects":"మా పనులు","Packages":"సోలార్ ప్యాకేజీలు","FAQ":"మీ సందేహాలు","Contact":"మమ్మల్ని సంప్రదించండి",
+    "Call":"కాల్ చేయండి","WhatsApp":"వాట్సాప్","Power Your Home With Solar":"మీ ఇంటికి సోలార్ పెట్టించుకోండి!",
+    "Professional Installation • Government Subsidy • Net Metering Assistance":"సోలార్ ఇన్‌స్టాలేషన్ నుంచి సబ్సిడీ వరకు — అన్నింట్లోనూ మీకు హెల్ప్ చేస్తాం",
+    "Get Free Quote":"ఫ్రీ కోట్ పొందండి","Call Now":"ఇప్పుడే కాల్ చేయండి","Installations":"ఇన్‌స్టాలేషన్లు","Years Warranty":"ఏళ్ల వారంటీ",
+    "Support":"సపోర్ట్","Customer Focus":"కస్టమర్ సేవ","Why Choose SJ Solars?":"SJ Solars నే ఎందుకు ఎంచుకోవాలి?",
+    "Trusted local expertise backed by real results.":"మంచి పని, నమ్మకమైన సేవ — ఇదే మా మాట.",
+    "70+ Installations":"70+ ఇన్‌స్టాలేషన్లు","High-efficiency panels built for long-term performance.":"ఎక్కువ కాలం బాగా పనిచేసే సోలార్ ప్యానెల్స్.",
+    "25 Years Warranty":"25 ఏళ్ల వారంటీ","Confidence backed by long-term product assurance.":"దీర్ఘకాలిక వారంటీతో మరింత నమ్మకం.",
+    "24/7 Support":"24/7 సపోర్ట్","Professional local team, always ready to help.":"మీకు హెల్ప్ చేయడానికి మా టీమ్ ఎప్పుడూ సిద్ధంగా ఉంటుంది.",
+    "Complete help with subsidy and net-metering paperwork.":"సబ్సిడీ, నెట్ మీటరింగ్ పనుల్లో కూడా మేమే హెల్ప్ చేస్తాం.",
+    "Recent Installations":"మేము ఇటీవల చేసిన పనులు","Solar Packages":"సోలార్ ప్యాకేజీలు","Most Popular":"చాలామంది ఎంచుకునేది",
+    "Frequently Asked Questions":"మీకు వచ్చే సందేహాలు","Everything you need to know before going solar.":"సోలార్ పెట్టించుకునే ముందు మీకు తెలియాల్సిన విషయాలు.",
+    "How long does installation take?":"సోలార్ పెట్టించడానికి ఎన్ని రోజులు పడుతుంది?",
+    "Usually 2–5 days depending on system size.":"సిస్టమ్ సైజును బట్టి సాధారణంగా 2–5 రోజులు పడుతుంది.",
+    "Do you help with government subsidy paperwork?":"సబ్సిడీ కోసం కూడా మీరు హెల్ప్ చేస్తారా?",
+    "Yes, we assist throughout the entire subsidy and net-metering process.":"అవును! సబ్సిడీ నుంచి నెట్ మీటరింగ్ వరకు మేము హెల్ప్ చేస్తాం.",
+    "Is after-sales support available?":"సోలార్ పెట్టించాక కూడా సపోర్ట్ ఉంటుందా?",
+    "Yes, dedicated after-sales support is available for all installations.":"ఖచ్చితంగా. సోలార్ పెట్టించాక కూడా మీకు సపోర్ట్ అందిస్తాం.",
+    "Please enter a valid monthly bill amount.":"మీ నెలవారీ కరెంట్ బిల్లు మొత్తాన్ని సరిగ్గా నమోదు చేయండి.",
+    "Recommended: ":"సిఫార్సు: ","System Cost":"సిస్టమ్ ఖర్చు","Subsidy":"సబ్సిడీ","Net Investment":"మీరు పెట్టాల్సిన మొత్తం",
+    "Annual Savings":"ఏడాదికి ఆదా","Payback Period:":"పెట్టుబడి తిరిగి వచ్చే సమయం:","25-Year Net Savings:":"25 ఏళ్లలో మొత్తం ఆదా:",
+    "Get Free Consultation on WhatsApp":"వాట్సాప్‌లో ఫ్రీగా మాట్లాడండి","Ready to Go Solar?":"సోలార్ పెట్టించుకోవాలనుకుంటున్నారా?",
+    "Contact us today for a free consultation.":"ఏమైనా సందేహాలున్నాయా? మాకు కాల్ చేయండి. మాట్లాడుకుందాం!",
+    "© 2026 SJ Solars. All Rights Reserved.":"© 2026 SJ Solars. అన్ని హక్కులు ప్రత్యేకం."
   };
-
   let language = "en";
-  const originalNodes = new Map();
+  let originals = new WeakMap();
 
-  function collectTextNodes() {
+  function textNodes() {
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-    const nodes = [];
+    const list = [];
     let node;
     while ((node = walker.nextNode())) {
-      if (!node.parentElement.closest("script, style, noscript")) nodes.push(node);
+      if (node.parentElement && !node.parentElement.closest("script,style,noscript")) list.push(node);
     }
-    return nodes;
-  }
-
-  function applyLanguage() {
-    const button = document.getElementById("languageToggle");
-    for (const node of collectTextNodes()) {
-      if (!originalNodes.has(node)) originalNodes.set(node, node.nodeValue);
-      const original = originalNodes.get(node);
-      const key = original.trim();
-      if (!key) continue;
-
-      let replacement = original;
-      if (language === "te" && translations[key]) {
-        const leading = original.match(/^\s*/)[0];
-        const trailing = original.match(/\s*$/)[0];
-        replacement = leading + translations[key] + trailing;
-      }
-      if (node.nodeValue !== replacement) node.nodeValue = replacement;
-    }
-    document.documentElement.lang = language === "te" ? "te" : "en";
-    document.title = language === "te"
-      ? "SJ సోలార్స్ | సోలార్ ప్యాకేజీలు"
-      : "SJ Solars | Premium Solar Solutions";
-    if (button) button.textContent = language === "en" ? "EN | TE" : "TE | EN";
+    return list;
   }
 
   window.toggleLanguage = function () {
     language = language === "en" ? "te" : "en";
-    applyLanguage();
+    textNodes().forEach(node => {
+      if (!originals.has(node)) originals.set(node, node.nodeValue);
+      const original = originals.get(node);
+      const key = original.trim();
+      if (!key) return;
+      let value = original;
+      if (language === "te" && translations[key]) {
+        value = original.replace(key, translations[key]);
+      }
+      if (node.nodeValue !== value) node.nodeValue = value;
+    });
+    document.documentElement.lang = language;
+    document.title = language === "te" ? "SJ సోలార్స్ | సోలార్ ప్యాకేజీలు" : "SJ Solars | Premium Solar Solutions";
+    const button = document.getElementById("languageToggle");
+    if (button) button.textContent = language === "en" ? "EN | TE" : "TE | EN";
   };
-
-  // Translate the labels created by the calculator after the user submits it.
-  const originalInnerHTML = Element.prototype.insertAdjacentHTML;
-  // Keep the page responsive: this script deliberately does not observe its own DOM mutations.
 })();
 </script>
 
